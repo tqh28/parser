@@ -1,4 +1,4 @@
-package com.wallethub.assignment.parser;
+package com.ef;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
