@@ -1,9 +1,9 @@
-package com.ef.util;
+package com.ef.service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ef.common.Validate;
+import com.ef.common.Validation;
 import com.ef.enumration.Duration;
 
 public class InlineArguments {
@@ -25,16 +25,16 @@ public class InlineArguments {
         }
         
         // check does argumentsMap contain enough required arguments
-        if (Validate.validateStringIsNullOrEmpty(argumentsMap.get("startDate"))
-                || Validate.validateStringIsNullOrEmpty(argumentsMap.get("duration"))
-                || Validate.validateStringIsNullOrEmpty(argumentsMap.get("threshold")) ) {
+        if (Validation.validateStringIsNullOrEmpty(argumentsMap.get("startDate"))
+                || Validation.validateStringIsNullOrEmpty(argumentsMap.get("duration"))
+                || Validation.validateStringIsNullOrEmpty(argumentsMap.get("threshold")) ) {
             return null;
         }
         
         // check type of duration is legal
         String duration = argumentsMap.get("duration");
-        if (duration.equalsIgnoreCase(Duration.DAYLY.toString())
-                || duration.equalsIgnoreCase(Duration.HOURLY.toString())) {
+        if (!duration.equalsIgnoreCase(Duration.DAYLY.toString())
+                && !duration.equalsIgnoreCase(Duration.HOURLY.toString())) {
             return null;
         }
         

@@ -1,11 +1,12 @@
-package com.ef.common;
+package com.ef.intergration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ExecuteQuery {
+public class Query {
 
 	// Database credentials
 	private static final String USER = "root";
@@ -14,15 +15,22 @@ public class ExecuteQuery {
 	
 	private static Connection connection = null;
 	
-	public ExecuteQuery() throws SQLException {
+	public Query() throws SQLException {
 		connection = DriverManager.getConnection(DB_URL, USER, PASS);
 		connection.setAutoCommit(false);
 	}
 
-	public void perform(String query) throws SQLException {
+	public void update(String sql) throws SQLException {
 		Statement statement = connection.createStatement();
-		statement.executeUpdate(query);
+		statement.executeUpdate(sql);
 		connection.commit();
 		statement.close();
+	}
+	
+	public ResultSet get(String sql) throws SQLException {
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(sql);
+		statement.close();
+		return resultSet;
 	}
 }
