@@ -1,3 +1,5 @@
-com/ef/Parser.class
+com/ef/util/InlineArguments.class
+com/ef/util/Common.class
 com/ef/ConnectDatabase.class
 com/ef/enumration/Duration.class
+com/ef/Parser.class

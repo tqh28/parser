@@ -7,6 +7,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
+
+import com.ef.util.Common;
+import com.ef.util.InlineArguments;
 
 /**
  * Hello world!
@@ -29,6 +33,15 @@ public class Parser {
         // System.out.println( "Hello World!" );
         for (String arg : args) {
             System.out.println(arg);
+        }
+        
+        Map<String, String> arguments = InlineArguments.convertArgumentsToMap(args);
+        if (arguments == null) {
+            System.out.println("Illegal arguments");
+        } else {
+            System.out.println(arguments.get("startDate"));
+            System.out.println(arguments.get("duration"));
+            System.out.println(arguments.get("threshold"));
         }
 
         /* READY */
