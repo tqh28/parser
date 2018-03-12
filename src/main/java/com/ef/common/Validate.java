@@ -1,6 +1,6 @@
-package com.ef.util;
+package com.ef.common;
 
-public class Common {
+public class Validate {
 
     public static boolean validateStringIsNullOrEmpty(String arg) {
         if (arg == null || arg.equals("")) {

@@ -3,6 +3,7 @@ package com.ef.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ef.common.Validate;
 import com.ef.enumration.Duration;
 
 public class InlineArguments {
@@ -24,9 +25,9 @@ public class InlineArguments {
         }
         
         // check does argumentsMap contain enough required arguments
-        if (Common.validateStringIsNullOrEmpty(argumentsMap.get("startDate"))
-                || Common.validateStringIsNullOrEmpty(argumentsMap.get("duration"))
-                || Common.validateStringIsNullOrEmpty(argumentsMap.get("threshold")) ) {
+        if (Validate.validateStringIsNullOrEmpty(argumentsMap.get("startDate"))
+                || Validate.validateStringIsNullOrEmpty(argumentsMap.get("duration"))
+                || Validate.validateStringIsNullOrEmpty(argumentsMap.get("threshold")) ) {
             return null;
         }
         
