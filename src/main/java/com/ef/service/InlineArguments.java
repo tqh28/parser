@@ -24,20 +24,52 @@ public class InlineArguments {
             }
         }
         
-        // check does argumentsMap contain enough required arguments
-        if (Validation.validateStringIsNullOrEmpty(argumentsMap.get("startDate"))
-                || Validation.validateStringIsNullOrEmpty(argumentsMap.get("duration"))
-                || Validation.validateStringIsNullOrEmpty(argumentsMap.get("threshold")) ) {
+        if (! validateArguments(argumentsMap)) {
             return null;
         }
-        
-        // check type of duration is legal
-        String duration = argumentsMap.get("duration");
-        if (!duration.equalsIgnoreCase(Duration.DAILY.toString())
-                && !duration.equalsIgnoreCase(Duration.HOURLY.toString())) {
-            return null;
-        }
-        
         return argumentsMap;
+    }
+    
+    private static boolean validateArguments(Map<String, String> argumentsMap) {
+        // start date
+        if (Validation.validateStringIsNullOrEmpty(argumentsMap.get("startDate"))) {
+            System.out.println("startDate is not found!");
+            return false;
+        } else {
+            // TODO
+        }
+        
+        // duration 
+        if (Validation.validateStringIsNullOrEmpty(argumentsMap.get("duration"))) {
+            System.out.println("duration is not found!");
+            return false;
+        } else {
+            String duration = argumentsMap.get("duration");
+            if (!duration.equalsIgnoreCase(Duration.DAILY.toString())
+                    && !duration.equalsIgnoreCase(Duration.HOURLY.toString())) {
+                return false;
+            }
+        }
+        
+        // threshold
+        if (Validation.validateStringIsNullOrEmpty(argumentsMap.get("threshold"))) {
+            System.out.println("threshold is not found!");
+            return false;
+        } else {
+            try {
+                Integer.parseInt(argumentsMap.get("threshold"));
+            } catch (IllegalArgumentException e) {
+                System.out.println("threshold is not a Integer!");
+                return false;
+            }
+        }
+        
+        // file path
+        if (Validation.validateStringIsNullOrEmpty(argumentsMap.get("accesslog"))) {
+            System.out.println("accesslog is not found!");
+            return false;
+        }
+        
+        return true;
     }
 }
