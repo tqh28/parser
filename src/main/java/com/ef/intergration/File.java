@@ -6,8 +6,8 @@ import java.io.FileReader;
 
 public class File {
 
-	public static BufferedReader getFileBufferReader(String filePath) throws FileNotFoundException {
-		// create file buffer reader
-		return new BufferedReader(new FileReader(filePath));
-	}
+    public static BufferedReader getFileBufferReader(String filePath) throws FileNotFoundException {
+        // create file buffer reader
+        return new BufferedReader(new FileReader(filePath));
+    }
 }

@@ -2,6 +2,8 @@ package com.ef.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.ef.constant.Constant;
@@ -10,57 +12,38 @@ import com.ef.intergration.Query;
 
 public class OverThreshold {
 
-	private Query query;
+    public static Map<String, String> getOverThresholds(Query query, String time, String duration, String threshold) throws SQLException {
+        String addTime;
 
-	public OverThreshold(Query query) {
-		this.query = query;
-	}
+        if (Duration.DAILY.toString().equalsIgnoreCase(duration)) {
+            addTime = Constant.ADD_ONE_DAY;
+        } else if (Duration.HOURLY.toString().equalsIgnoreCase(duration)) {
+            addTime = Constant.ADD_ONE_HOUR;
+        } else {
+            return null;
+        }
 
-	public Map<String, Integer> getOverThreshold(String time, String duration, String threshold) throws SQLException {
-		String addTime;
+        String sql = String.format(Constant.GET_IP_OVER_THRESHOLD_QUERY, time, addTime, time, threshold);
+        Statement statement = query.getStatement();
+        ResultSet resultSet = statement.executeQuery(sql);
 
-		if (Duration.DAYLY.toString().equalsIgnoreCase(duration)) {
-			addTime = Constant.ADD_ONE_DAY;
-		} else if (Duration.HOURLY.toString().equalsIgnoreCase(duration)) {
-			addTime = Constant.ADD_ONE_HOUR;
-		} else {
-			return null;
-		}
+        Map<String, String> overThresholds = convertResultSetToMap(resultSet);
+        
+        statement.close();
 
-		String sql = String.format(Constant.GET_IP_OVER_THRESHOLD_QUERY, time, addTime, time, threshold);
-		ResultSet resultSet = query.get(sql);
-		
-//		return convertResultSetToMap(resultSet);
-		
-		while (resultSet.next()) {
-			
-			int ip = resultSet.getInt("ip");
-			int sum = resultSet.getInt("sum");
-			
-			
+        return overThresholds;
+    }
 
-			// Display values
-			System.out.print("IP: " + ip);
-			System.out.print(", sum: " + sum);
-		}
-		
-		return null;
+    private static Map<String, String> convertResultSetToMap(ResultSet resultSet) throws SQLException {
+        Map<String, String> overThresholds = new HashMap<>();
+        
+        while (resultSet.next()) {
+            String ip = resultSet.getString("ip");
+            String sum = resultSet.getString("sum");
+            
+            overThresholds.put(ip, sum);
+        }
 
-	}
-
-	private Map<String, Integer> convertResultSetToMap(ResultSet resultSet) throws SQLException {
-		while (resultSet.next()) {
-			
-			int ip = resultSet.getInt("ip");
-			int sum = resultSet.getInt("sum");
-			
-			
-
-			// Display values
-			System.out.print("IP: " + ip);
-			System.out.print(", sum: " + sum);
-		}
-		
-		return null;
-	}
+        return overThresholds;
+    }
 }

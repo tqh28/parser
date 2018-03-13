@@ -2,7 +2,7 @@ package com.ef.enumration;
 
 public enum Duration {
 
-    DAYLY,
+    DAILY,
     HOURLY
 
 }

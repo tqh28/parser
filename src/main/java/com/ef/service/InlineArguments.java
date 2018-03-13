@@ -18,8 +18,8 @@ public class InlineArguments {
                 // is not existed
                 break;
             } else {
-                String key = arg.substring(2, isCharacterPosition);
-                String value = arg.substring(isCharacterPosition + 1);
+                String key = arg.substring(2, isCharacterPosition); // 2 because remove -- before argument
+                String value = arg.substring(isCharacterPosition + 1); // +1 is after = character
                 argumentsMap.put(key, value);
             }
         }
@@ -33,7 +33,7 @@ public class InlineArguments {
         
         // check type of duration is legal
         String duration = argumentsMap.get("duration");
-        if (!duration.equalsIgnoreCase(Duration.DAYLY.toString())
+        if (!duration.equalsIgnoreCase(Duration.DAILY.toString())
                 && !duration.equalsIgnoreCase(Duration.HOURLY.toString())) {
             return null;
         }
