@@ -35,8 +35,6 @@ public class InlineArguments {
         if (Validation.validateStringIsNullOrEmpty(argumentsMap.get("startDate"))) {
             System.out.println("startDate is not found!");
             return false;
-        } else {
-            // TODO
         }
         
         // duration 

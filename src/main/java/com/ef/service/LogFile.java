@@ -34,7 +34,5 @@ public class LogFile {
 
         // insert rest rows
         executeQuery.update(queryBuffer.substring(0, queryBuffer.length() - 2)); // remove ', ' in last of query string
-
-        System.out.println("Insert done.");
 	}
 }
